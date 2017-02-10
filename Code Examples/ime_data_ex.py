@@ -15,4 +15,8 @@ code = course["course"]["code"]
 name = course["course"]["name"]
 exam_date = course["course"]["assessment"][0]["date"]
 
+t = course["course"]
+
 print("Exam date for", code, name, "is", exam_date)
+print()
+print(t)
