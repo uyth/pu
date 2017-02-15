@@ -26,8 +26,7 @@ def get_code(course):
     :param course: json
     :return: Returns the string course code
     """
-    #TODO
-    return code
+    return course["course"]["code"]
 
 
 def get_name(course):
@@ -36,13 +35,25 @@ def get_name(course):
     :param course: json
     :return: String course name
     """
-    #TODO
-    return name
+    return course["course"]["name"]
 
 
 def get_credit(course):
     """
-
-    :param course:
-    :return:
+    Fetch credited credit for completing course.
+    :param course: json
+    :return: Float credits
     """
+    return course["course"]["credits"]
+
+
+def get_description(course):
+    """
+    Fetches course description.
+    :param course:
+    :return: String description.
+    """
+    return course["course"]["infotype"][1]['text']
+
+
+#TODO: More getters.

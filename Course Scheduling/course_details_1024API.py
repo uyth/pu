@@ -9,16 +9,13 @@ base_url_1 = "http://www.ntnu.no/web/studier/emner?p_p_id=coursedetailsportlet_W
 base_url_2 = "&year=2017&version=1"
 
 code = input("Course code:\n>> ").upper()
-
-
+url = base_url_1 + code + base_url_2
 
 # Fetch the course
-course = requests.get(base_url_1 + code + base_url_2).json()
+course = requests.get(url).json()
 
 # Get relevant data
-# Name
-
 code = course["course"]["summarized"][0]["courseCode"]
 name = course["course"]["summarized"][0]["courseName"]
-print()
+print(url)
 print(code + ' ' + name)
