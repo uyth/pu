@@ -6,7 +6,7 @@
 
 import sys, json, codecs, apiai
 
-CLIENT_ACCESS_TOKEN = '039282428fdb49f9a226295099d3e26e'
+CLIENT_ACCESS_TOKEN = 'a2ed79849dd443bf95c422257d78f816'
 ai = apiai.ApiAI(CLIENT_ACCESS_TOKEN)
 
 def request():
