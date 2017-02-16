@@ -5,7 +5,7 @@
 # Author: Audun Liberg
 
 import sys, json, codecs, apiai
-from course_scheduling import exam_date_IME
+from course_schedule import exam_date_IME
 
 CLIENT_ACCESS_TOKEN = 'a2ed79849dd443bf95c422257d78f816'
 ai = apiai.ApiAI(CLIENT_ACCESS_TOKEN)
