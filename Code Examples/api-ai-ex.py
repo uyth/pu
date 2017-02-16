@@ -18,8 +18,19 @@ def request():
     response = request.getresponse().read().decode('utf-8')
     response = json.loads(response)
     print("Recognized action:", response["result"]["action"])
+    response = action(response, response["result"]["action"])
     print("Recognized topic:", response["result"]["fulfillment"]["speech"])
     print()
+    return
+
+# action will change witai response if it recognizes a valid action, else fallback to apiai response
+def action(response, action):
+    # if action recognized, change response
+    if action == "smalltalk.user":
+        pass
+    if action == "":
+        pass
+    return response
 
 if __name__ == '__main__':
     while True:
