@@ -4,7 +4,7 @@
 # Feel free to insert your own client access token to connect your own bot
 # Author: Audun Liberg
 
-import sys, json, codecs, apiai
+import sys, json, codecs, apiai, time
 from course_scheduling import exam_date_IME
 
 CLIENT_ACCESS_TOKEN = 'a2ed79849dd443bf95c422257d78f816'
@@ -25,15 +25,20 @@ def request():
     return
 
 # action will change witai response if it recognizes a valid action, else fallback to apiai response
+# if unknown value chaned, it is added to result as a new paramter
 def action(response, action):
     # if action recognized, change response
-    if action == "schedule":
+    try:
+        if action == "schedule":
+            pass
+        if action == "get_exam_date":
+            course_code = response["result"]["parameters"]["course"]
+            date = exam_date_IME.get_exam_date(course_code)
+            response["result"]["fulfillment"]["speech"] = \
+                response["result"]["fulfillment"]["speech"].replace("$date", date)
+            response["result"]["parameters"]["date"] = date
+    except:
         pass
-    if action == "get_exam_date":
-        course_code = response["result"]["parameters"]["course"]
-        date = exam_date_IME.get_exam_date(course_code)
-        response["result"]["fulfillment"]["speech"] = \
-            response["result"]["fulfillment"]["speech"].replace("$date", date)
     return response
 
 if __name__ == '__main__':
