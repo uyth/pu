@@ -17,6 +17,7 @@ def jason_to_dictionary(course_code):
     courseIME = requests.get(url_ime).json()
     course1024 = requests.get(url_1024).json()
 
+    # ime = [0], 1024 = [1]
     return courseIME, course1024
 
 
@@ -58,6 +59,17 @@ def get_level(code):
     """
     course = jason_to_dictionary(code)[0]
     return course["course"]["studyLevelName"]
+
+
+def get_exam_date(code):
+    """
+    Fetches course exam date.
+    :param code: String of course code.
+    :return: String exam date.
+    """
+    course = jason_to_dictionary(code)[0]
+    date = course["course"]["assessment"][0]["date"]
+    return date
 
 
 def build_schedule(code, program):
