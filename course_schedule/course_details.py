@@ -72,18 +72,20 @@ def get_exam_date(code):
     return date
 
 def get_day_until(code):
-    
+    pass
 
 
-def build_schedule(code, program):
+
+def get_schedule(code, program):
     """
     Builds the schedule of a single course.
     :param code: Course code
     :param program: Study program (MTDT, BIT, ...)
     :return: String timetable
     """
+
     # Uses 1024 API, makes course as dictionary and fetches correct subsection.
-    course = jason_to_dictionary(code)[1]
+    course = jason_to_dictionary(code.upper())[1]
     s = course["course"]["summarized"]
 
     # Starts with empty time table (schedule) and hashed days (API).
@@ -97,10 +99,13 @@ def build_schedule(code, program):
             # (day, from, to, room, type)
             day_int = lecture["dayNum"]
             if prev_day == day_int:
-                table[day_int].append((lecture["from"], lecture["to"], lecture["rooms"][0]["romNavn"], lecture["description"]))
+                table[day_int].append(
+                    (lecture["from"], lecture["to"], lecture["rooms"][0]["romNavn"], lecture["description"]))
             else:
                 table[day_int] = []
-                table[day_int].append((lecture["from"], lecture["to"], lecture["rooms"][0]["romNavn"], lecture["description"]))
+                table[day_int].append(
+                    (lecture["from"], lecture["to"], lecture["rooms"][0]["romNavn"], lecture["description"]))
+
             prev_day = day_int
 
     # Make schedule as printable string.
@@ -110,5 +115,8 @@ def build_schedule(code, program):
             ret += days[key] + '\n' + lecture[3] + ', ' + lecture[2] + '\n'\
                + lecture[0] + ' - ' + lecture[1] + '\n\n'
 
-    return ret
+    if len(ret) == 0:
+        return "You do not have this subject."
+    else:
+        return ret
 
