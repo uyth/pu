@@ -1,7 +1,8 @@
 # Fetching and returning course details.
 
 import requests
-
+import datetime
+from datetime import datetime
 
 def jason_to_dictionary(course_code):
     base_ime = "http://www.ime.ntnu.no/api/course/en/"
@@ -71,9 +72,19 @@ def get_exam_date(code):
     date = course["course"]["assessment"][0]["date"]
     return date
 
-def get_day_until(code):
-    pass
+def get_days_until(code):
+    """
+    Days until exam in given subject.
+    :param code: String of course code.
+    :return: Int days until exam
+    """
+    date_format = "%Y-%m-%d"
+    input_date = get_exam_date(code)
+    exam_date = datetime.strptime(input_date, date_format)
+    today = datetime.today()
+    diff = exam_date - today
 
+    return diff.days
 
 
 def get_schedule(code, program):
@@ -119,4 +130,3 @@ def get_schedule(code, program):
         return "You do not have this subject."
     else:
         return ret
-
