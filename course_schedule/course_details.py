@@ -130,7 +130,7 @@ def get_schedule(code, program):
     # Iterate through all lectures on 1024 (s).
     for lecture in s:
         # If correct parallel, include in table; times, room, description.
-        if program.upper() in lecture["studyProgramKeys"]:
+        if program.upper() in lecture["studyProgramKeys"] or lecture["studyProgramKeys"] == []:
             # (day, from, to, room, type)
             day_int = lecture["dayNum"]
             if prev_day == day_int:
@@ -154,3 +154,5 @@ def get_schedule(code, program):
         return "You do not have this subject."
     else:
         return ret
+
+print(get_schedule("TDT4100", "MTDT"))
