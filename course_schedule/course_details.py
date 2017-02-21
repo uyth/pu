@@ -72,30 +72,42 @@ def get_exam_date(code):
     return date
 
 def get_day_until(code):
-    
+    pass
 
 
-def build_schedule(code, program):
+def get_schedule(code, program):
     # Uses 1024 API, makes course as dictionary and fetches correct subsection.
-    course = jason_to_dictionary(code)[1]
+    course = jason_to_dictionary(code.upper())[1]
     s = course["course"]["summarized"]
 
     # Starts with empty time table (schedule) and hashed days (API).
     days = {1: "Monday", 2: "Tuesday", 3: "Wednesday", 4: "Thursday", 5: "Friday"}
     table = {}
+    prev_day = 0
     # Iterate through all lectures on 1024 (s).
     for lecture in s:
         # If correct parallel, include in table; times, room, description.
         if program.upper() in lecture["studyProgramKeys"]:
             # (day, from, to, room, type)
             day_int = lecture["dayNum"]
-            table[day_int] = (lecture["from"], lecture["to"], lecture["rooms"][0]["romNavn"], lecture["description"])
+            if prev_day == day_int:
+                table[day_int].append(
+                    (lecture["from"], lecture["to"], lecture["rooms"][0]["romNavn"], lecture["description"]))
+            else:
+                table[day_int] = []
+                table[day_int].append(
+                    (lecture["from"], lecture["to"], lecture["rooms"][0]["romNavn"], lecture["description"]))
+            prev_day = day_int
 
     # Make schedule as printable string.
     ret = ''
     for key, day in table.items():
-        ret += days[key] + '\n' + table[key][3] + ', ' + table[key][2] + '\n'\
-               + table[key][0] + ' - ' + table[key][1]
-        ret += '\n\n'
+        for lecture in day:
+            ret += days[key] + '\n' + lecture[3] + ', ' + lecture[2] + '\n'\
+               + lecture[0] + ' - ' + lecture[1] + '\n\n'
 
-    return ret
+    if len(ret) == 0:
+        return "You do not have this subject."
+    else:
+        return ret
+
