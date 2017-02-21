@@ -1,8 +1,7 @@
-# Fetching and returning course details.
 
 import requests
-import datetime
 from datetime import datetime
+
 
 def jason_to_dictionary(course_code):
     base_ime = "http://www.ime.ntnu.no/api/course/en/"
@@ -71,6 +70,7 @@ def get_exam_date(code):
     course = jason_to_dictionary(code)[0]
     date = course["course"]["assessment"][0]["date"]
     return date
+
 
 def get_days_until(code):
     """
