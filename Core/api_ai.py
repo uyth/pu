@@ -34,19 +34,25 @@ def action(response, action):
     """
     # if action recognized, change response
     try:
-        if action == "schedule":
-            pass
+        if action == "get_schedule":
+            course_code = response["result"]["parameters"]["course"]
+            program = response["result"]["parameters"]["program"]
+            schedule = course_details.get_schedule(course_code, program)
+            if course_code != "" and program != "":
+                print(course_code, program)
+                response["result"]["fulfillment"]["speech"] = \
+                    response["result"]["fulfillment"]["speech"].replace("$schedule", schedule)
+                response["result"]["parameters"]["schedule"] = schedule
+                print(response)
         if action == "get_exam_date":
             course_code = response["result"]["parameters"]["course"]
             date = course_details.get_exam_date(course_code)
             days_until = course_details.get_days_until(course_code)
             print(date, days_until)
             response["result"]["fulfillment"]["speech"] = \
-                response["result"]["fulfillment"]["speech"].replace("$date", date)
-            response["result"]["fulfillment"]["speech"] = \
-                response["result"]["fulfillment"]["speech"].replace("$daysuntil", days_until)
+                response["result"]["fulfillment"]["speech"].replace("$date", date).replace("$days_until", days_until)
             response["result"]["parameters"]["date"] = date
-            response["result"]["parameters"]["daysuntil"] = days_until
+            response["result"]["parameters"]["days_until"] = days_until
     except:
         pass
     return response
