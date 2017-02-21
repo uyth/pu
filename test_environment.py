@@ -1,6 +1,5 @@
 from course_schedule.course_details import *
 
-
 code = "tdt4145"
 program = "MTDT"
 

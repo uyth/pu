@@ -3,7 +3,13 @@ import requests
 from datetime import datetime
 
 
-def jason_to_dictionary(course_code):
+def json_to_dictionary(course_code):
+    """
+    Does a request to .json online. Converts json to dictionary.
+    Does so with both IME and 1024.
+    :param course_code: String course code
+    :return: Tuple(Dict)
+    """
     base_ime = "http://www.ime.ntnu.no/api/course/en/"
     base_1024a = "http://www.ntnu.no/web/studier/emner?p_p_id=coursedetailsportlet_WAR_courselistportlet&p_p_lifecycle" \
                  "=2&p_p_resource_id=timetable&_coursedetailsportlet_WAR_courselistportlet_year=2017" \
@@ -27,7 +33,7 @@ def get_name(code):
     :param code: String of course code
     :return: String course name
     """
-    course = jason_to_dictionary(code)[0]
+    course = json_to_dictionary(code)[0]
     return course["course"]["name"]
 
 
@@ -37,7 +43,7 @@ def get_credits(code):
     :param code: String of course code
     :return: Float credits
     """
-    course = jason_to_dictionary(code)[0]
+    course = json_to_dictionary(code)[0]
     return course["course"]["creditTypeCode"] + ': ' + str(course["course"]["credit"])
 
 
@@ -47,7 +53,7 @@ def get_description(code):
     :param code: String of course code
     :return: String description.
     """
-    course = jason_to_dictionary(code)[0]
+    course = json_to_dictionary(code)[0]
     return course["course"]["infoType"][2]["text"]
 
 
@@ -57,7 +63,7 @@ def get_level(code):
     :param code: String of course code
     :return: String study level.
     """
-    course = jason_to_dictionary(code)[0]
+    course = json_to_dictionary(code)[0]
     return course["course"]["studyLevelName"]
 
 
@@ -67,9 +73,23 @@ def get_exam_date(code):
     :param code: String of course code.
     :return: String exam date.
     """
-    course = jason_to_dictionary(code)[0]
+    course = json_to_dictionary(code)[0]
     date = course["course"]["assessment"][0]["date"]
-    return date
+
+    # Convert to "readable" date.
+    months = {'01': "January", '02': "February", '03':"March", '04': "April", '05': "May", '06': "June", '07': "July",
+              '08': "August", '09': "September", '10': "October", '11': "November", '12': "December"}
+    day = date[-2:]
+    month = months[date[5:7]]
+    year = date[:4]
+    if int(day[-1]) in (1, 21, 31):
+        return month + ' ' + str(int(day)) + 'st' + ' ' + year
+    elif int(day[-1]) in (2, 22):
+        return month + ' ' + str(int(day)) + 'nd' + ' ' + year
+    elif int(day[-1]) in (3, 23):
+        return month + ' ' + str(int(day)) + 'rd' + ' ' + year
+    else:
+        return month + ' ' + str(int(day)) + 'th' + ' ' + year
 
 
 def get_days_until(code):
@@ -96,7 +116,7 @@ def get_schedule(code, program):
     """
 
     # Uses 1024 API, makes course as dictionary and fetches correct subsection.
-    course = jason_to_dictionary(code.upper())[1]
+    course = json_to_dictionary(code.upper())[1]
     s = course["course"]["summarized"]
 
     # Starts with empty time table (schedule) and hashed days (API).
