@@ -43,7 +43,7 @@ while True:
         print("*" * 69)
     elif ans == '4':
         print("*" * 69)
-        print(get_exam_date(code))
+        print(get_exam_date_readable(code))
         print("*" * 69)
     elif ans == '5':
         print("*" * 69)
@@ -62,7 +62,7 @@ while True:
         print("*" * 69)
         print("*" * 20 + "    PARRY'S METHOD TESTER    " + "*" * 20)
         print("*" * 69)
-        print("Curre6nt course: " + code.upper())
+        print("Current course: " + code.upper())
         print("Current program: " + program.upper())
         print()
         print("get_course_ ...")
