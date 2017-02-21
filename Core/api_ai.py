@@ -1,8 +1,3 @@
-# API.AI Example
-# This example shows how API.AI can be used to process requests
-# The connected bot will recognize requests for news, and will output the requested action and topic
-# Feel free to insert your own client access token to connect your own bot
-# Author: Audun Liberg
 
 
 import sys, json, codecs, apiai
@@ -10,6 +5,7 @@ from course_schedule import exam_date_IME
 
 CLIENT_ACCESS_TOKEN = 'a2ed79849dd443bf95c422257d78f816'
 ai = apiai.ApiAI(CLIENT_ACCESS_TOKEN)
+
 
 def request():
     # Create a request
@@ -25,9 +21,15 @@ def request():
     print()
     return
 
-# action will change witai response if it recognizes a valid action, else fallback to apiai response
-# if unknown value chaned, it is added to result as a new paramter
+
 def action(response, action):
+    """
+    Action will change witai response if it recognizes a valid action, ele fallback to apiai response
+    if unknown value changed, it is added to result as a new parameter.
+    :param response:
+    :param action:
+    :return: Response
+    """
     # if action recognized, change response
     try:
         if action == "schedule":
