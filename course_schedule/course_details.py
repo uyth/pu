@@ -75,7 +75,15 @@ def get_day_until(code):
     pass
 
 
+
 def get_schedule(code, program):
+    """
+    Builds the schedule of a single course.
+    :param code: Course code
+    :param program: Study program (MTDT, BIT, ...)
+    :return: String timetable
+    """
+
     # Uses 1024 API, makes course as dictionary and fetches correct subsection.
     course = jason_to_dictionary(code.upper())[1]
     s = course["course"]["summarized"]
@@ -97,6 +105,7 @@ def get_schedule(code, program):
                 table[day_int] = []
                 table[day_int].append(
                     (lecture["from"], lecture["to"], lecture["rooms"][0]["romNavn"], lecture["description"]))
+
             prev_day = day_int
 
     # Make schedule as printable string.
