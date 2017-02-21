@@ -6,7 +6,9 @@
 
 
 import sys, json, codecs, apiai
-from course_schedule import exam_date_IME
+from course_schedule import course_details
+
+
 
 CLIENT_ACCESS_TOKEN = 'a2ed79849dd443bf95c422257d78f816'
 ai = apiai.ApiAI(CLIENT_ACCESS_TOKEN)
@@ -34,10 +36,15 @@ def action(response, action):
             pass
         if action == "get_exam_date":
             course_code = response["result"]["parameters"]["course"]
-            date = exam_date_IME.get_exam_date(course_code)
+            date = course_details.get_exam_date(course_code)
+            days_until = course_details.get_days_until(course_code)
+            print(date, days_until)
             response["result"]["fulfillment"]["speech"] = \
                 response["result"]["fulfillment"]["speech"].replace("$date", date)
+            response["result"]["fulfillment"]["speech"] = \
+                response["result"]["fulfillment"]["speech"].replace("$daysuntil", days_until)
             response["result"]["parameters"]["date"] = date
+            response["result"]["parameters"]["daysuntil"] = days_until
     except:
         pass
     return response

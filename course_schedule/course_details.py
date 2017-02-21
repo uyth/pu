@@ -76,7 +76,7 @@ def get_days_until(code):
     """
     Days until exam in given subject.
     :param code: String of course code.
-    :return: Int days until exam
+    :return: String days until exam
     """
     date_format = "%Y-%m-%d"
     input_date = get_exam_date(code)
@@ -84,7 +84,7 @@ def get_days_until(code):
     today = datetime.today()
     diff = exam_date - today
 
-    return diff.days
+    return str(diff.days)
 
 
 def get_schedule(code, program):
