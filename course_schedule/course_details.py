@@ -71,6 +71,9 @@ def get_exam_date(code):
     date = course["course"]["assessment"][0]["date"]
     return date
 
+def get_day_until(code):
+    
+
 
 def build_schedule(code, program):
     """
