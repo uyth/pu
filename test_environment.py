@@ -47,8 +47,9 @@ while True:
         print(get_exam_date(code))
         print("*" * 69)
     elif ans == '5':
-        pass
-        # print(get_day_until(code))
+        print("*" * 69)
+        print(get_days_until(code))
+        print("*" * 69)
     elif ans == '6':
         print("*" * 69)
         print(get_schedule(code, program))
