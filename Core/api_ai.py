@@ -1,8 +1,10 @@
 
 
-import sys, json, codecs, apiai
+import sys
+import json
+import codecs
+import apiai
 from course_schedule import course_details
-
 
 
 CLIENT_ACCESS_TOKEN = 'a2ed79849dd443bf95c422257d78f816'
@@ -56,6 +58,7 @@ def action(response, action):
     except:
         pass
     return response
+
 
 if __name__ == '__main__':
     while True:
