@@ -147,8 +147,8 @@ def get_schedule(code, program):
     ret = ''
     for key, day in table.items():
         for lecture in day:
-            ret += days[key] + '\n' + lecture[3] + ', ' + lecture[2] + '\n'\
-               + lecture[0] + ' - ' + lecture[1] + '\n\n'
+            ret += '\n' + days[key] + '\n' + lecture[3] + ', ' + lecture[2] + '\n'\
+               + lecture[0] + ' - ' + lecture[1] + '\n'
 
     if len(ret) == 0:
         return "You do not have this subject."
