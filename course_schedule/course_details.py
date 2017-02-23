@@ -154,5 +154,3 @@ def get_schedule(code, program):
         return "You do not have this subject."
     else:
         return ret
-
-print(get_schedule("TDT4100", "MTDT"))
