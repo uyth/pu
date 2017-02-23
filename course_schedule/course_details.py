@@ -150,6 +150,9 @@ def get_schedule(code, program):
             ret += days[key] + '\n' + lecture[3] + ', ' + lecture[2] + '\n'\
                + lecture[0] + ' - ' + lecture[1] + '\n\n'
 
+    if ret[:-4] == '\n\n':
+        ret = ret[:-4]
+
     if len(ret) == 0:
         return "You do not have this subject."
     else:

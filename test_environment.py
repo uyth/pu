@@ -1,83 +1,82 @@
 from course_schedule.course_details import *
 
-code = "tdt4145"
-program = "MTDT"
 
-print("*" * 69)
-print("*" * 20 + "    PARRY'S METHOD TESTER    " + "*" * 20)
-print("*" * 69)
-print("Current course: " + code.upper())
-print("Current program: " + program.upper())
-print()
-print("get_course_ ...")
-print("1. Name")
-print("2. Code")
-print("3. Description")
-print("4. Exam date")
-print("5. Days until exam")
-print("6. Schedule")
-print()
-print("\'C\' to change code")
-print("\'P\' to change program")
-print("\'Q\' to quit")
-print("\'M\' for menu")
-print("*" * 49)
-print()
+def stars():
+    print("*" * 69)
 
 
-while True:
+def print_stuff(code, program):
+    print()
+    print()
+    stars()
+    print("*" * 20 + "    PARRY'S METHOD TESTER    " + "*" * 20)
+    stars()
+    print("Current course: " + code.upper())
+    print("Current program: " + program.upper())
+    print()
+    print("get_course_ ...")
+    print("1. Name")
+    print("2. Code")
+    print("3. Description")
+    print("4. Exam date")
+    print("5. Days until exam")
+    print("6. Schedule")
+    print("7. Credits")
+    print()
+    print("\'C\' to change code")
+    print("\'P\' to change program")
+    print("\'Q\' to quit")
+    print("\'M\' for menu")
+    stars()
+    print()
 
-    ans = input("Action:\n>> ")
 
-    if ans == '1':
-        print("*" * 69)
-        print(get_name(code))
-        print("*" * 69)
-    elif ans == '2':
-        print("*" * 69)
-        print(code.upper())
-        print("*" * 69)
-    elif ans == '3':
-        print("*" * 69)
-        print(get_description(code))
-        print("*" * 69)
-    elif ans == '4':
-        print("*" * 69)
-        print(get_exam_date_readable(code))
-        print("*" * 69)
-    elif ans == '5':
-        print("*" * 69)
-        print(get_days_until(code))
-        print("*" * 69)
-    elif ans == '6':
-        print("*" * 69)
-        print(get_schedule(code, program))
-        print("*" * 69)
+def main():
+    code = "tdt4145"
+    program = "MTDT"
 
-    if ans == "P":
-        program = input("New program:\n>> ")
-    elif ans == "C":
-        code = input("New course:\n>> ")
-    elif ans == 'M':
-        print("*" * 69)
-        print("*" * 20 + "    PARRY'S METHOD TESTER    " + "*" * 20)
-        print("*" * 69)
-        print("Current course: " + code.upper())
-        print("Current program: " + program.upper())
-        print()
-        print("get_course_ ...")
-        print("1. Name")
-        print("2. Code")
-        print("3. Description")
-        print("4. Exam date")
-        print("5. Days until exam")
-        print("6. Schedule")
-        print()
-        print("\'C\' to change code")
-        print("\'P\' to change program")
-        print("\'Q\' to quit")
-        print("\'M\' for menu")
-        print("*" * 69)
-        print()
-    elif ans == "Q":
-        break
+    print_stuff(code, program)
+
+    while True:
+        ans = input("Action:\n>> ")
+
+        if ans == '1':
+            stars()
+            print(get_name(code))
+            stars()
+        elif ans == '2':
+            stars()
+            print(code.upper())
+            stars()
+        elif ans == '3':
+            stars()
+            print(get_description(code))
+            stars()
+        elif ans == '4':
+            stars()
+            print(get_exam_date_readable(code))
+            stars()
+        elif ans == '5':
+            stars()
+            print(get_days_until(code))
+            stars()
+        elif ans == '6':
+            stars()
+            print(get_schedule(code, program))
+            stars()
+        elif ans == '7':
+            stars()
+            print(get_credits(code))
+            stars()
+
+        elif ans == "P":
+            program = input("New program:\n>> ")
+        elif ans == "C":
+            code = input("New course:\n>> ")
+        elif ans == 'M':
+            print_stuff(code, program)
+        elif ans == "Q":
+            break
+
+if __name__ == '__main__':
+    main()
